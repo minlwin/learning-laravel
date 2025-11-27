@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17.6-alpine 
+    container_name: postgres-db
+    environment:
+      - POSTGRES_DB=ep01db
+      - POSTGRES_USER=ep01usr
+      - POSTGRES_PASSWORD=ep01pwd
+    ports:
+      - 5432:5432
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./postgress:/docker-entrypoint-initdb.d
+volumes:
+  dbdata:

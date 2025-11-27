@@ -1,0 +1,16 @@
+INSERT INTO REGION (id, name, capital) VALUES
+(1, 'Ayeyarwady Region', 'Pathein'),
+(2, 'Bago Region', 'Bago'),
+(3, 'Chin State', 'Hakha'),
+(4, 'Kachin State', 'Myitkyina'),
+(5, 'Kayah State', 'Loikaw'),
+(6, 'Kayin State', 'Hpa-an'),
+(7, 'Magway Region', 'Magwe'),
+(8, 'Mandalay Region', 'Mandalay'),
+(9, 'Mon State', 'Mawlamyine'),
+(10, 'Naypyidaw Union Territory', 'Naypyidaw'),
+(11, 'Rakhine State', 'Sittwe'),
+(12, 'Sagaing Region', 'Monywa'),
+(13, 'Shan State', 'Taunggyi'),
+(14, 'Tanintharyi Region', 'Dawei'),
+(15, 'Yangon Region', 'Yangon');
