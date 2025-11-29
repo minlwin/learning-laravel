@@ -10,9 +10,22 @@ class RegionController extends Controller
 {
     public function index()
     {
-        $regions = Region::all();
-        return Inertia::render("regions", [
-            "list"=> $regions
+        return Inertia::render("regions/list", [
+            "list"=> Region::all()
         ]);
+    }
+
+    public function details($id)
+    {
+        $region = Region::findOrFail($id);
+        return Inertia::render("regions/details", [
+            "region" => $region,
+            "townships" => $region->townships()
+        ]);
+    }
+
+    public function upload($id, Request $request)
+    {
+        return redirect("/regions/{$id}");
     }
 }
