@@ -1,17 +1,22 @@
 import { cn } from "@/lib/utils"
 import React from "react"
+import { Field, FieldError, FieldLabel } from "../ui/field"
 
 type FormGroupProps = {
     label : string
     className?: string
-    type? : "vertical" | "horizontal"
+    orientation? : "vertical" | "horizontal" | "responsive"
     children? : React.ReactNode
+    error? : string
 }
-export default function FormGroup({label, children, type, className} : FormGroupProps) {
+export default function FormGroup({label, children, orientation, className, error} : FormGroupProps) {
     return (
-        <div className={cn('flex', 'gap-2', className, type == 'horizontal' ? 'flex-row items-center' : "flex-col")}>
-            <label>{label}</label>
+        <Field orientation={orientation} className={className}>
+            <FieldLabel>{label}</FieldLabel>
             {children}
-        </div>
+            {error && 
+                <FieldError>{error}</FieldError>
+            }
+        </Field>
     )
 }

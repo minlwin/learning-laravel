@@ -1,29 +1,31 @@
 import BaseLayout from "@/components/layout/base-layout";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item";
 import { Region } from "@/types/regions";
 import { Link } from '@inertiajs/react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Flag, Folder, Send } from 'lucide-react';
 
 export default function RegionsPage({list} : {list : Region []}) {
     return (
         <BaseLayout title="Regions">
             <section className="grid grid-cols-3 gap-4">
                 {list.map(item => 
-                    <Card key={item.id}>
-                        <CardContent>
-                            <div className="flex">
-                                <div className="w-full">
-                                    <CardTitle>{ item.name }</CardTitle>
-                                    <CardDescription className="mt-2">Capital is { item.capital }.</CardDescription>
-                                </div>
-                                <div>
-                                    <Link href={`/regions/${item.id}`}>
-                                        <ChevronRight className="size-4" />
-                                    </Link>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Item variant={'outline'} key={item.id}>
+                        <ItemMedia>
+                            <Folder />
+                        </ItemMedia>
+
+                        <ItemContent>
+                            <ItemTitle>{item.name}</ItemTitle>
+                            <ItemDescription>Capital is {item.capital}.</ItemDescription>
+                        </ItemContent>
+
+                        <ItemActions>
+                            <Link href={`/regions/${item.id}`}>
+                                <ChevronRight />
+                            </Link>
+                        </ItemActions>
+                    </Item>
                 )}
             </section>
         </BaseLayout>

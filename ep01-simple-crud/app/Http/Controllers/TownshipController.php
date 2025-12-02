@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Region;
 use App\Models\Township;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class TownshipController extends Controller
@@ -28,11 +27,32 @@ class TownshipController extends Controller
 
     public function edit(Request $request) 
     {
-        return Inertia::render("townships/edit");
+        $township = null;
+        $id = $request->input("id");
+
+        if($id) {
+            $township = Township::findOrFail($id);
+        }
+        
+        return Inertia::render("townships/edit", [
+            "data"=> $township,
+            "regions" => Region::all(),
+        ]);
     }
 
     public function save(Request $request)
     {
+        $id = $request->input("id");
+        $form = $request->validate([
+            "name" => "required",
+            "region_id" => "required"
+        ]);
+
+        if($id) {
+            Township::update($id, $form);
+        } else {
+            Township::create($form);
+        }
         return redirect("/townships");
     }
 }

@@ -1,9 +1,10 @@
 import BaseLayout from "@/components/layout/base-layout";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import FormGroup from "@/components/widgets/form-group";
+import NoData from "@/components/widgets/no-data";
 import { Region } from "@/types/regions";
 import { Township, TownshipSearch } from "@/types/townships";
 import { Link, useForm } from "@inertiajs/react";
@@ -16,12 +17,17 @@ export default function TownshipList({regions, inputs, data} : {regions : Region
             <>
                 <TownshipSearchForm regions={regions} inputs={inputs} />
 
-                <section className="grid grid-cols-3">
-                    {data.map((item, index) => 
-                        <div className="col" key={index}>
-                            <Card></Card>
-                        </div>
-                    )}
+                <section className="mt-4">
+                    {data.length > 0 ? 
+                        <section className="grid grid-cols-3">
+                            {data.map((item, index) => 
+                                <div className="col" key={index}>
+                                    <TownshipItem data={item} />
+                                </div>
+                            )}
+                        </section> :
+                        <NoData data="Search Result" />
+                    }
                 </section>
             </>
         </BaseLayout>
@@ -44,7 +50,7 @@ function TownshipSearchForm({regions, inputs} : {regions : Region[], inputs : To
 
     return (
         <form onSubmit={search} className="flex gap-4">
-            <FormGroup label="Region" type="horizontal" className="w-fit">
+            <FormGroup label="Region" orientation="horizontal" className="w-fit">
                 <NativeSelect>
                     <NativeSelectOption value={""}>Select All</NativeSelectOption>
                     {regions.map(item => 
@@ -53,7 +59,7 @@ function TownshipSearchForm({regions, inputs} : {regions : Region[], inputs : To
                 </NativeSelect>
             </FormGroup>
 
-            <FormGroup label="Keyword" type="horizontal">
+            <FormGroup label="Keyword" orientation="horizontal" className="w-fit">
                 <Input type="text" placeholder="Search Keyword"  />
             </FormGroup>
             
@@ -63,7 +69,7 @@ function TownshipSearchForm({regions, inputs} : {regions : Region[], inputs : To
                 </Button>
 
                 <Button asChild type="button" variant={"outline"}>
-                    <Link href={""}>
+                    <Link href={"/townships/edit"}>
                         <Plus /> Create New
                     </Link>
                 </Button>
@@ -75,7 +81,9 @@ function TownshipSearchForm({regions, inputs} : {regions : Region[], inputs : To
 function TownshipItem({data} : {data : Township}) {
     return (
         <Card>
-
+            <CardContent>
+                <CardTitle>{data.name}</CardTitle>
+            </CardContent>
         </Card>
     )
 }
